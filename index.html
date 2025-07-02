@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Temperaturvergleich Berlin – Bildschieber</title>
+  <title>Temperaturvergleich Berlin – Bild-Slider</title>
   <style>
     body {
       background: #111;
@@ -26,7 +26,6 @@
       aspect-ratio: 1280 / 594;
       overflow: hidden;
       border-radius: 12px;
-      background: #000;
     }
 
     .image {
@@ -38,24 +37,23 @@
       object-fit: contain;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      overflow: hidden;
+    .top {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.1s ease-out;
     }
 
     .slider-container {
-      margin-top: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      display: flex;
-      justify-content: center;
+      padding: 10px;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
     }
 
     input[type="range"] {
-      width: 80%;
-      max-width: 500px;
+      width: 100%;
       appearance: none;
       height: 10px;
       background: #444;
@@ -88,29 +86,22 @@
   <h2>Temperaturvergleich Berlin Tiergarten und Alexanderplatz (Tag ↔ Wärmebild)</h2>
 
   <div class="container">
-    <img src="Folie1fertig.PNG" class="image" alt="Bild 1 (Tag)">
-    <div class="overlay" id="overlay">
-      <img src="Folie2fertig.PNG" class="image" alt="Bild 2 (Wärmebild)">
-    </div>
-  </div>
+    <img src="Folie1fertig.PNG" class="image bottom" alt="Tag-Bild">
+    <img src="Folie2fertig.PNG" class="image top" id="topImage" alt="Wärmebild">
 
-  <div class="slider-container">
-    <input type="range" min="0" max="100" value="0" id="slider">
+    <div class="slider-container">
+      <input type="range" min="0" max="100" value="0" id="slider">
+    </div>
   </div>
 
   <script>
     const slider = document.getElementById('slider');
-    const overlay = document.getElementById('overlay');
+    const topImage = document.getElementById('topImage');
 
-    function updateOverlay() {
-      const value = parseInt(slider.value, 10);
-      overlay.style.width = value + '%';
-    }
-
-    slider.addEventListener('input', updateOverlay);
-
-    // Initiale Position
-    updateOverlay();
+    slider.addEventListener('input', () => {
+      const value = slider.value;
+      topImage.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+    });
   </script>
 
 </body>
