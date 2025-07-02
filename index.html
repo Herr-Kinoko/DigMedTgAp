@@ -23,9 +23,10 @@
       width: 100%;
       max-width: 1000px;
       margin: 0 auto;
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 1280 / 594;
       overflow: hidden;
       border-radius: 12px;
+      background: #000;
     }
 
     .image {
@@ -90,8 +91,8 @@
 
   <script>
     const slider = document.getElementById('slider');
-    const bild1 = document.getElementById('bild1'); // Satellit
-    const bild2 = document.getElementById('bild2'); // Wärmebild
+    const bild1 = document.getElementById('bild1');
+    const bild2 = document.getElementById('bild2');
 
     slider.addEventListener('input', () => {
       const value = parseInt(slider.value, 10) / 100;
@@ -106,3 +107,4 @@
 
 </body>
 </html>
+
